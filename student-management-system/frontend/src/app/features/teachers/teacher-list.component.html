@@ -1,0 +1,53 @@
+<div class="space-y-8 animate-fade-in px-2">
+    <!-- Header Section (M3 Style) -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+            <h1 class="text-[2rem] font-medium text-google-text tracking-tight mb-1">Faculty Registry</h1>
+            <p class="text-xs text-google-text_secondary">Manage teaching staff and department assignments</p>
+        </div>
+        <button mat-raised-button color="primary">
+            <div class="flex items-center gap-2">
+                <mat-icon class="scale-90">person_add</mat-icon>
+                <span>Add Teacher</span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Teacher Grid (M3 Style Clean Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div *ngFor="let teacher of teachers"
+            class="bg-white border border-black/5 rounded-[1.5rem] p-6 hover:shadow-google-elevation transition-all group cursor-pointer flex flex-col items-center">
+
+            <div
+                class="w-20 h-20 rounded-full bg-google-surface_container flex items-center justify-center text-google-blue font-bold text-2xl mb-4 group-hover:scale-110 transition-transform">
+                {{teacher.name[0]}}
+            </div>
+
+            <h3 class="font-bold text-google-text mb-1">{{teacher.name}}</h3>
+            <p class="text-[10px] font-black uppercase tracking-widest text-google-blue mb-6">{{teacher.subject}} Dept.
+            </p>
+
+            <div class="w-full space-y-3 mb-6">
+                <div class="flex items-center gap-3 text-xs text-google-text_secondary">
+                    <mat-icon class="scale-75 opacity-50">mail_outline</mat-icon>
+                    <span class="truncate">{{teacher.email}}</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs text-google-text_secondary">
+                    <mat-icon class="scale-75 opacity-50">history_edu</mat-icon>
+                    <span>{{teacher.qualification}}</span>
+                </div>
+            </div>
+
+            <div class="w-full flex gap-2">
+                <button
+                    class="flex-1 py-2 rounded-google-full border border-black/10 text-[10px] font-bold uppercase tracking-wider text-google-text_secondary hover:bg-black/5 transition-all">
+                    Profile
+                </button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-rose-400 hover:bg-rose-50 transition-all">
+                    <mat-icon class="scale-75">delete_outline</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="space-y-6 animate-fade-in">
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800">Classes</h1>
+            <p class="text-gray-500">Manage school sections and capacity</p>
+        </div>
+        <button mat-raised-button color="primary" class="bg-indigo-600 px-6 py-2 rounded-xl shadow-lg">
+            <mat-icon>domain</mat-icon>
+            <span class="ml-2">New Class</span>
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <mat-card *ngFor="let cls of classes"
+            class="border-none shadow-md rounded-2xl overflow-hidden bg-white hover:translate-y-[-4px] transition-all">
+            <div class="p-6">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 font-bold text-xl">
+                        {{cls.className}}
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Class {{cls.className}}</h3>
+                        <span class="text-xs font-bold uppercase tracking-wider text-purple-500">{{cls.section}}
+                            Section</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 mb-8">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-500 font-medium">Class Capacity</span>
+                            <span class="font-bold text-gray-700">{{cls.totalStudents}}/{{cls.capacity}}</span>
+                        </div>
+                        <mat-progress-bar mode="determinate" [value]="(cls.totalStudents/cls.capacity) * 100"
+                            class="h-2 rounded-full"></mat-progress-bar>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-gray-600">
+                        <mat-icon class="text-sm">account_circle</mat-icon>
+                        <span class="text-sm font-medium">Head Teacher: {{cls.teacher}}</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button mat-flat-button class="flex-1 bg-slate-100 text-gray-700 rounded-xl py-2">Manage</button>
+                    <button mat-flat-button
+                        class="flex-1 bg-indigo-50 text-indigo-700 rounded-xl py-2">Students</button>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

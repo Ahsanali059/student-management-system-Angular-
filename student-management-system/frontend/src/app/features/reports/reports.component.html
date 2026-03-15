@@ -1,0 +1,63 @@
+<div class="space-y-8 animate-fade-in px-2">
+    <!-- Header Section (M3 style) -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div>
+            <h1 class="text-2xl font-medium text-google-text tracking-tight mb-1">Analytical Reports</h1>
+            <p class="text-xs text-google-text_secondary">Data-driven insights and academic summaries</p>
+        </div>
+
+        <div class="flex gap-3">
+            <button class="m3-fab !py-3 !px-6">
+                <div class="flex items-center gap-2">
+                    <mat-icon class="scale-90">add_chart</mat-icon>
+                    <span>Generate New Report</span>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Reports Grid (Drive Folder/File Style) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Folders -->
+        <div *ngFor="let folder of ['Attendance', 'Grades', 'Staff', 'Finance']"
+            class="bg-google-surface-container border border-black/5 rounded-[1.5rem] p-5 hover:bg-white hover:shadow-google-elevation transition-all cursor-pointer group flex items-center gap-4">
+            <mat-icon
+                class="text-google-text-secondary group-hover:text-google-blue transition-colors">folder</mat-icon>
+            <span class="text-sm font-bold text-google-text">{{folder}} Analytics</span>
+        </div>
+    </div>
+
+    <!-- Recent Files Section -->
+    <div class="space-y-4">
+        <h3 class="text-sm font-bold text-google-text_secondary uppercase tracking-widest px-2">Recently Generated</h3>
+        <div class="bg-white border border-black/5 rounded-[1.5rem] overflow-hidden">
+            <div class="divide-y divide-black/5">
+                <div *ngFor="let file of [
+                    { name: 'Semester_Fall_Results.pdf', size: '2.4 MB', type: 'PDF' },
+                    { name: 'Annual_Attendance_Summary.xlsx', size: '1.1 MB', type: 'EXCEL' },
+                    { name: 'Staff_Performance_Review.pdf', size: '840 KB', type: 'PDF' }
+                ]"
+                    class="flex items-center justify-between p-4 px-8 hover:bg-google-surface-container/30 transition-colors group cursor-pointer">
+                    <div class="flex items-center gap-4">
+                        <mat-icon [class.text-rose-500]="file.type === 'PDF'"
+                            [class.text-emerald-500]="file.type === 'EXCEL'" class="scale-90">
+                            {{file.type === 'PDF' ? 'picture_as_pdf' : 'table_view'}}
+                        </mat-icon>
+                        <div>
+                            <p class="text-sm font-medium text-google-text">{{file.name}}</p>
+                            <span class="text-[10px] text-google-text-secondary">{{file.size}} • Modified 2h ago</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button mat-icon-button class="!text-google-text-secondary hover:!bg-black/5">
+                            <mat-icon class="scale-75">file_download</mat-icon>
+                        </button>
+                        <button mat-icon-button class="!text-google-text-secondary hover:!bg-black/5">
+                            <mat-icon class="scale-75">more_vert</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

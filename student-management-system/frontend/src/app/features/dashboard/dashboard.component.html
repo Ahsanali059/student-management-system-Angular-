@@ -1,0 +1,111 @@
+<div class="space-y-10 animate-fade-in">
+    <!-- Header Section (Drive Style) -->
+    <div class="flex flex-col gap-6">
+        <div>
+            <h1 class="text-[2rem] font-medium text-google-text tracking-tight mb-1">Welcome back, {{ username }}</h1>
+            <p class="text-google-text_secondary text-sm">Here is a quick look at your academic portal activities.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div *ngFor="let stat of stats"
+                class="bg-google-surface_container p-6 rounded-[1.5rem] border border-transparent hover:border-black/5 transition-all group cursor-pointer">
+                <div class="flex items-center gap-4 mb-4">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-google-blue shadow-sm">
+                        <mat-icon class="scale-90">{{stat.icon}}</mat-icon>
+                    </div>
+                    <span
+                        class="text-xs font-bold text-google-text_secondary uppercase tracking-widest">{{stat.title}}</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-medium text-google-text">{{stat.value}}</span>
+                    <span [ngClass]="stat.trendUp ? 'text-emerald-600' : 'text-rose-600'" class="text-[10px] font-bold">
+                        {{stat.trendUp ? '+' : '-'}}{{stat.trend}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area (Bento Split) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Analytics/Files Section (Drive like) -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white border border-black/5 rounded-[1.5rem] p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-lg font-bold text-google-text flex items-center gap-3">
+                        <mat-icon class="text-google-blue">bar_chart</mat-icon>
+                        Attendance Trends
+                    </h3>
+                    <div class="flex gap-1 bg-google-surface p-1 rounded-google-full">
+                        <button
+                            class="px-4 py-1.5 bg-white shadow-sm rounded-google-full text-xs font-bold text-google-blue">Today</button>
+                        <button
+                            class="px-4 py-1.5 rounded-google-full text-xs font-bold text-google-text_secondary hover:bg-black/5">Week</button>
+                        <button
+                            class="px-4 py-1.5 rounded-google-full text-xs font-bold text-google-text_secondary hover:bg-black/5">Month</button>
+                    </div>
+                </div>
+
+                <!-- Mock Graphical Representation -->
+                <div class="h-64 flex items-end justify-between gap-4 px-4 relative">
+                    <div class="absolute inset-x-0 bottom-0 h-px bg-black/5"></div>
+                    <div *ngFor="let bar of [45, 78, 56, 92, 67, 85, 74]"
+                        class="flex-1 max-w-[40px] bg-google-blue/80 rounded-t-lg transition-all duration-1000 animate-slide-up"
+                        [style.height.%]="bar">
+                    </div>
+                </div>
+                <div class="flex justify-between mt-4 px-4">
+                    <span class="text-[10px] font-bold text-google-text_secondary uppercase"
+                        *ngFor="let day of ['M', 'T', 'W', 'T', 'F', 'S', 'S']">{{day}}</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div
+                    class="bg-google-surface_container p-6 rounded-[1.5rem] hover:bg-white hover:shadow-google-elevation transition-all cursor-pointer">
+                    <mat-icon class="text-amber-500 mb-4 scale-110">star_outline</mat-icon>
+                    <h4 class="font-bold text-google-text mb-1">Starred Subjects</h4>
+                    <p class="text-xs text-google-text_secondary">Access your most frequent subjects immediately.</p>
+                </div>
+                <div
+                    class="bg-google-surface_container p-6 rounded-[1.5rem] hover:bg-white hover:shadow-google-elevation transition-all cursor-pointer">
+                    <mat-icon class="text-google-blue mb-4 scale-110">folder_shared</mat-icon>
+                    <h4 class="font-bold text-google-text mb-1">Shared Materials</h4>
+                    <p class="text-xs text-google-text_secondary">Review documents shared by faculty members.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Feed (Gmail style list) -->
+        <div class="space-y-6">
+            <div class="bg-white border border-black/5 rounded-[1.5rem] p-6 flex flex-col min-h-[500px]">
+                <div class="flex items-center gap-3 mb-8">
+                    <h3 class="text-lg font-bold text-google-text">Recent Activity</h3>
+                    <div class="bg-google-blue/10 text-google-blue px-2 py-0.5 rounded-full text-[10px] font-bold">LIVE
+                    </div>
+                </div>
+
+                <div class="flex-1 space-y-2">
+                    <div *ngFor="let activity of activities"
+                        class="flex gap-4 p-3 rounded-xl hover:bg-black/5 transition-all cursor-pointer group">
+                        <div
+                            class="w-10 h-10 rounded-full bg-google-surface flex-shrink-0 flex items-center justify-center text-google-text_secondary group-hover:bg-google-blue/10 group-hover:text-google-blue transition-colors">
+                            <mat-icon class="scale-75">{{activity.icon}}</mat-icon>
+                        </div>
+                        <div class="flex-1 overflow-hidden">
+                            <p class="text-xs font-bold text-google-text leading-tight truncate mb-0.5">
+                                {{activity.text}}</p>
+                            <span class="text-[10px] text-google-text_secondary italic">{{activity.time}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    class="w-full mt-8 py-3 rounded-google-full border border-black/10 text-xs font-bold text-google-text_secondary hover:bg-black/5 transition-all">
+                    View full history
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

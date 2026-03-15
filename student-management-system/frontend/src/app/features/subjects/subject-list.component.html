@@ -1,0 +1,40 @@
+<div class="space-y-6 animate-fade-in">
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800">Subjects</h1>
+            <p class="text-gray-500">Academic course management</p>
+        </div>
+        <button mat-raised-button color="primary" class="bg-indigo-600 px-6 py-2 rounded-xl shadow-lg">
+            <mat-icon>add_box</mat-icon>
+            <span class="ml-2">Create Subject</span>
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <mat-card *ngFor="let subject of subjects"
+            class="p-6 border-none shadow-md rounded-2xl bg-white hover:shadow-xl transition-all border-l-8 border-indigo-500">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <div class="text-xs font-bold text-indigo-500 uppercase mb-1">{{subject.code}}</div>
+                    <h2 class="text-2xl font-bold text-gray-800">{{subject.name}}</h2>
+                </div>
+                <mat-chip class="bg-indigo-50 text-indigo-700 font-bold px-4 py-3">{{subject.credits}}
+                    Credits</mat-chip>
+            </div>
+            <p class="text-gray-500 mb-6 leading-relaxed">{{subject.description}}</p>
+            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl mb-6">
+                <div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-indigo-600">
+                    <mat-icon>person</mat-icon>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-400 font-medium">Instructor</p>
+                    <p class="text-sm font-bold text-gray-700">{{subject.teacher}}</p>
+                </div>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button mat-stroked-button color="primary" class="rounded-lg border-indigo-100">Edit</button>
+                <button mat-flat-button color="warn" class="rounded-lg">Archive</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

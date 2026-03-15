@@ -1,0 +1,33 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.active-link {
+    @apply block;
+}
+
+mat-sidenav {
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mat-mdc-menu-panel {
+    @apply !min-w-[240px] !p-2 !rounded-google-full;
+}
+
+.mat-mdc-menu-item {
+    @apply !rounded-google-full !my-1 transition-all;
+}
+
+.mat-mdc-menu-item:hover {
+    @apply !bg-black/5;
+}
+
+/* Scrollbar Customization within content */
+main::-webkit-scrollbar {
+    width: 6px;
+}
+
+main::-webkit-scrollbar-thumb {
+    @apply bg-black/10 rounded-full;
+}

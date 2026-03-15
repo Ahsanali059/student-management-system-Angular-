@@ -1,0 +1,139 @@
+<mat-sidenav-container class="h-screen w-full bg-google-surface">
+    <!-- Google Style Sidenav -->
+    <mat-sidenav #sidenav mode="side" opened class="!w-64 !border-none !bg-transparent p-4">
+        <div class="h-full flex flex-col pt-2">
+            <!-- App Branding -->
+            <div class="px-6 py-6 flex items-center gap-3 mb-4">
+                <img src="/images/logo.png" class="w-10 h-10 object-contain" alt="School Logo">
+                <span class="text-xl font-medium text-google-text tracking-tight">Student Portal</span>
+            </div>
+
+            <!-- Gmail style FAB (Optional, for Quick Actions) -->
+            <div class="px-2 mb-6">
+                <button class="m3-fab group w-full justify-center">
+                    <mat-icon class="transition-transform group-hover:rotate-12">add</mat-icon>
+                    <span>Quick Action</span>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 space-y-1">
+                <a routerLink="/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                    class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>dashboard</mat-icon>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+                <a routerLink="/students" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>group</mat-icon>
+                        <span>Students</span>
+                    </div>
+                </a>
+                <a routerLink="/teachers" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>school</mat-icon>
+                        <span>Teachers</span>
+                    </div>
+                </a>
+                <a routerLink="/classes" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>meeting_room</mat-icon>
+                        <span>Classes</span>
+                    </div>
+                </a>
+                <a routerLink="/subjects" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>book</mat-icon>
+                        <span>Subjects</span>
+                    </div>
+                </a>
+                <a routerLink="/attendance" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>event_available</mat-icon>
+                        <span>Attendance</span>
+                    </div>
+                </a>
+                <a routerLink="/marks" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>assignment_turned_in</mat-icon>
+                        <span>Marks</span>
+                    </div>
+                </a>
+                <a routerLink="/reports" routerLinkActive="active-link" class="group block no-underline">
+                    <div class="m3-nav-pill group-[.active-link]:m3-nav-pill-active">
+                        <mat-icon>analytics</mat-icon>
+                        <span>Reports</span>
+                    </div>
+                </a>
+            </nav>
+
+            <!-- User Profile (Bottom) -->
+            <div class="mt-auto pt-6 border-t border-black/5 mx-2">
+                <div
+                    class="flex items-center gap-3 px-4 py-4 rounded-google transition-all hover:bg-black/5 cursor-pointer">
+                    <div
+                        class="w-8 h-8 rounded-full bg-google-blue text-white flex items-center justify-center font-bold text-sm">
+                        {{ username[0] | uppercase }}
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-xs font-bold text-google-text truncate leading-tight">{{ username }}</p>
+                        <p class="text-[10px] text-google-text_secondary uppercase tracking-widest">{{ roles[0] }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav>
+
+    <!-- Google Style Content Area -->
+    <mat-sidenav-content class="!bg-white md:m-2 md:rounded-google shadow-sm overflow-hidden border border-black/5">
+        <div class="flex flex-col h-full overflow-hidden">
+            <!-- Google style Toolbar (Drive-like Search) -->
+            <mat-toolbar class="!bg-white !h-20 !px-4 md:!px-8 flex items-center gap-4">
+                <button mat-icon-button (click)="sidenav.toggle()" class="!text-google-text_secondary">
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <div class="flex-1 flex justify-center px-4">
+                    <div class="relative w-full max-w-2xl group">
+                        <mat-icon
+                            class="absolute left-4 top-1/2 -translate-y-1/2 text-google-text_secondary group-focus-within:text-google-blue transition-colors">search</mat-icon>
+                        <input type="text" placeholder="Search in portal" class="m3-search-bar">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button mat-icon-button class="!text-google-text_secondary">
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+                    <button mat-icon-button class="!text-google-text_secondary">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                    <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="!w-10 !h-10 !p-0">
+                        <div
+                            class="w-8 h-8 rounded-full bg-google-blue/10 text-google-blue flex items-center justify-center font-bold text-sm">
+                            {{ username[0] | uppercase }}
+                        </div>
+                    </button>
+                    <mat-menu #profileMenu="matMenu" class="!rounded-google !mt-2 shadow-xl">
+                        <button mat-menu-item routerLink="/profile">
+                            <mat-icon>account_circle</mat-icon>
+                            <span>Manage Profile</span>
+                        </button>
+                        <hr class="my-2 border-black/5" />
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon>logout</mat-icon>
+                            <span>Sign out</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </mat-toolbar>
+
+            <!-- Content -->
+            <main class="flex-1 overflow-y-auto p-6 md:p-10 bg-white">
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

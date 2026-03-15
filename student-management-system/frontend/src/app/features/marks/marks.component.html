@@ -1,0 +1,96 @@
+<div class="space-y-6 animate-fade-in px-2">
+    <!-- Header Section (M3 style) -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div>
+            <h1 class="text-2xl font-medium text-google-text tracking-tight mb-1">Academic Performance</h1>
+            <p class="text-xs text-google-text_secondary">Centralized grade management and mark sheets</p>
+        </div>
+
+        <div class="flex gap-3">
+            <div class="bg-google-surface_container p-1 rounded-google-full flex">
+                <button class="px-6 py-2 bg-white shadow-sm rounded-google-full text-xs font-bold text-google-blue">Mid
+                    Terms</button>
+                <button
+                    class="px-6 py-2 rounded-google-full text-xs font-bold text-google-text_secondary hover:bg-black/5 transition-all">Finals</button>
+            </div>
+            <button mat-raised-button color="primary" class="!px-6">
+                <div class="flex items-center gap-2">
+                    <mat-icon class="scale-90">publish</mat-icon>
+                    <span>Release Results</span>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Marks Spreadsheet style view (M3) -->
+    <div class="bg-white border border-black/5 rounded-[1.5rem] overflow-hidden shadow-sm">
+        <div class="p-6 border-b border-black/5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <mat-icon class="text-amber-500">workspace_premium</mat-icon>
+                <h3 class="text-sm font-bold text-google-text_secondary uppercase tracking-widest">Mark Registry</h3>
+            </div>
+            <div class="relative group w-64">
+                <mat-icon
+                    class="absolute left-3 top-1/2 -translate-y-1/2 text-google-text_secondary scale-75">search</mat-icon>
+                <input type="text" placeholder="Find student..."
+                    class="w-full bg-google-surface border-none rounded-google-full py-2 pl-10 pr-4 text-xs font-medium focus:bg-white focus:shadow-md outline-none transition-all">
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr
+                        class="bg-google-surface text-[10px] font-black uppercase tracking-widest text-google-text_secondary">
+                        <th class="py-4 px-8 border-b border-black/5">Student Detail</th>
+                        <th class="py-4 px-8 border-b border-black/5">Mathematics</th>
+                        <th class="py-4 px-8 border-b border-black/5">Science</th>
+                        <th class="py-4 px-8 border-b border-black/5">English</th>
+                        <th class="py-4 px-8 border-b border-black/5">Overall</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-black/5">
+                    <tr *ngFor="let m of [1,2,3,4,5]"
+                        class="hover:bg-google-surface_container/30 transition-colors group">
+                        <td class="py-5 px-8">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-google-blue/10 text-google-blue flex items-center justify-center font-bold text-[10px]">
+                                    MS</div>
+                                <span class="text-sm font-medium text-google-text">Mustafa Shaukat</span>
+                            </div>
+                        </td>
+                        <td class="py-5 px-8">
+                            <input type="number" value="85"
+                                class="w-16 bg-transparent border-b border-transparent focus:border-google-blue outline-none text-sm font-bold text-google-text transition-all text-center">
+                        </td>
+                        <td class="py-5 px-8">
+                            <input type="number" value="92"
+                                class="w-16 bg-transparent border-b border-transparent focus:border-google-blue outline-none text-sm font-bold text-google-text transition-all text-center">
+                        </td>
+                        <td class="py-5 px-8">
+                            <input type="number" value="78"
+                                class="w-16 bg-transparent border-b border-transparent focus:border-google-blue outline-none text-sm font-bold text-google-text transition-all text-center">
+                        </td>
+                        <td class="py-5 px-8">
+                            <div class="flex items-center gap-2">
+                                <div class="h-1.5 w-16 bg-black/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 rounded-full" [style.width.%]="85"></div>
+                                </div>
+                                <span class="text-xs font-black text-emerald-600">85%</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="p-6 bg-google-surface border-t border-black/5 flex items-center justify-center">
+            <button mat-button
+                class="!text-google-blue !font-bold !text-xs !tracking-widest uppercase flex items-center gap-2">
+                Load More Students
+                <mat-icon class="scale-75">keyboard_arrow_down</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
