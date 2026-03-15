@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto space-y-10 animate-fade-in py-10">
+<div *ngIf="user" class="max-w-4xl mx-auto space-y-10 animate-fade-in py-10">
     <!-- Profile Header -->
     <div class="flex flex-col items-center text-center space-y-6">
         <div class="relative group">
@@ -14,8 +14,9 @@
 
         <div>
             <h1 class="text-3xl font-medium text-google-text">{{ user.username }}</h1>
-            <p class="text-google-text-secondary font-medium tracking-widest uppercase text-xs mt-1">{{
-                user.roles.join(', ') }}</p>
+            <p class="text-google-text-secondary font-medium tracking-widest uppercase text-xs mt-1">
+                {{ user.roles.join(', ') }}
+            </p>
         </div>
     </div>
 

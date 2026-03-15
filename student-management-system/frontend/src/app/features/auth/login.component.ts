@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -36,6 +37,7 @@ export class LoginComponent {
   loading = false;
   hidePassword = true;
   errorMessage = '';
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private fb: FormBuilder,
@@ -62,17 +64,19 @@ export class LoginComponent {
     const { username, password } = this.loginForm.value;
     this.loading = true;
 
-    this.authService.login(username, password).subscribe({
-      next: data => {
-        this.storageService.saveUser(data);
-        this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
-        this.router.navigate(['/dashboard']);
-      },
-      error: err => {
-        this.errorMessage = err.error?.message || 'Login failed! Please check your credentials.';
-        this.loading = false;
-        this.snackBar.open(this.errorMessage, 'Close', { duration: 3000 });
-      }
-    });
+    this.authService.login(username, password)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.storageService.saveUser(data);
+          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Login failed! Please check your credentials.';
+          this.loading = false;
+          this.snackBar.open(this.errorMessage, 'Close', { duration: 3000 });
+        }
+      });
   }
 }

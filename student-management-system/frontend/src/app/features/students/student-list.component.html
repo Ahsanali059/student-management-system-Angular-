@@ -13,7 +13,7 @@
                 <input type="text" (input)="applyFilter($event)" placeholder="Filter by name or roll..."
                     class="m3-search-bar !py-2.5 !pl-12 !max-w-none">
             </div>
-            <button mat-raised-button color="primary" class="!h-11 shadow-none">
+            <button mat-raised-button color="primary" class="!h-11 shadow-none" (click)="openAddDialog()">
                 <div class="flex items-center gap-2">
                     <mat-icon class="scale-90">add</mat-icon>
                     <span>Add Student</span>
@@ -93,10 +93,12 @@
                     Actions</th>
                 <td mat-cell *matCellDef="let student" class="!px-6 !py-4 text-right">
                     <div class="flex justify-end gap-1">
-                        <button mat-icon-button class="!text-google-text_secondary hover:!bg-black/5 transition-all">
+                        <button mat-icon-button (click)="openEditDialog(student)"
+                            class="!text-google-text_secondary hover:!bg-black/5 transition-all">
                             <mat-icon class="scale-75">edit</mat-icon>
                         </button>
-                        <button mat-icon-button class="!text-rose-400 hover:!bg-rose-50 transition-all">
+                        <button mat-icon-button (click)="deleteStudent(student)"
+                            class="!text-rose-400 hover:!bg-rose-50 transition-all">
                             <mat-icon class="scale-75">delete_outline</mat-icon>
                         </button>
                     </div>

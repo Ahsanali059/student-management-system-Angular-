@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { StorageService } from '../../core/services/storage.service';
+import { SearchService } from '../../core/services/search.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { inject, DestroyRef } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +16,33 @@ import { StorageService } from '../../core/services/storage.service';
 })
 export class DashboardComponent {
   username = '';
+  private destroyRef = inject(DestroyRef);
+  private allActivities = [
+    { text: 'New Student: Sarah Jenkins enrolled in Class 10A', time: '12 minutes ago', icon: 'person_add', type: 'enrollment' },
+    { text: 'Attendance finalized for High School Block', time: '2 hours ago', icon: 'done_all', type: 'attendance' },
+    { text: 'System Maintenance scheduled for midnight', time: '5 hours ago', icon: 'settings', type: 'system' },
+    { text: 'New Faculty member: Dr. Robert Wilson joined', time: 'Yesterday', icon: 'hail', type: 'faculty' }
+  ];
+  activities = [...this.allActivities];
 
-  constructor(private storageService: StorageService) {
-    this.username = this.storageService.getUser().username || 'User';
+  constructor(
+    private storageService: StorageService,
+    private searchService: SearchService
+  ) {
+    this.username = this.storageService.getUser()?.username || 'User';
+
+    this.searchService.searchQuery$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(query => {
+        if (!query) {
+          this.activities = [...this.allActivities];
+        } else {
+          const lowerQuery = query.toLowerCase();
+          this.activities = this.allActivities.filter(a =>
+            a.text.toLowerCase().includes(lowerQuery)
+          );
+        }
+      });
   }
   stats = [
     { title: 'Student Enrollment', value: '1,250', icon: 'school', color: 'bg-indigo-600', trend: 12, trendUp: true },
@@ -24,10 +51,4 @@ export class DashboardComponent {
     { title: 'Overall Attendance', value: '98.4%', icon: 'verified', color: 'bg-amber-500', trend: 3, trendUp: true }
   ];
 
-  activities = [
-    { text: 'New Student: Sarah Jenkins enrolled in Class 10A', time: '12 minutes ago', icon: 'person_add', type: 'enrollment' },
-    { text: 'Attendance finalized for High School Block', time: '2 hours ago', icon: 'done_all', type: 'attendance' },
-    { text: 'System Maintenance scheduled for midnight', time: '5 hours ago', icon: 'settings', type: 'system' },
-    { text: 'New Faculty member: Dr. Robert Wilson joined', time: 'Yesterday', icon: 'hail', type: 'faculty' }
-  ];
 }

@@ -7,7 +7,7 @@ import { StorageService } from '../services/storage.service';
 export class HttpRequestInterceptor implements HttpInterceptor {
     constructor(private storageService: StorageService) { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const user = this.storageService.getUser();
         if (user && user.token) {
             req = req.clone({

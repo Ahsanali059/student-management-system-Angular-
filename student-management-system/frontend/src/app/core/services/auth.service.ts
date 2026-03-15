@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, delay } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { AuthResponse } from '../models/auth.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor() { }
+    private apiUrl = `${environment.apiUrl}/auth`;
 
-    login(username: string, password: string): Observable<any> {
-        // Mock login response
-        return of({
-            token: 'mock-jwt-token',
-            id: 1,
-            username: username || 'admin',
-            email: 'admin@example.com',
-            roles: ['ROLE_ADMIN']
-        }).pipe(delay(1000));
+    constructor(private http: HttpClient) { }
+
+    login(username: string, password: string): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.apiUrl}/signin`, {
+            username,
+            password
+        });
     }
 
     register(username: string, email: string, password: string): Observable<any> {
-        return of({ message: 'User registered successfully!' }).pipe(delay(1000));
+        return this.http.post(`${this.apiUrl}/signup`, {
+            username,
+            email,
+            password,
+            role: ['user']
+        });
     }
 }

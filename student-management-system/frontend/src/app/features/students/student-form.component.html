@@ -1,0 +1,62 @@
+<div class="p-8 space-y-8 min-w-[500px] animate-fade-in bg-white rounded-[2rem]">
+    <div class="flex items-center justify-between mb-2">
+        <h2 class="text-2xl font-medium text-google-text">{{ data.title }}</h2>
+        <button mat-icon-button (click)="onCancel()" class="text-google-text_secondary">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="grid grid-cols-2 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="e.g. John">
+                <mat-error *ngIf="studentForm.get('firstName')?.hasError('required')">First name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="e.g. Doe">
+                <mat-error *ngIf="studentForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" type="email" placeholder="john.doe@example.com">
+            <mat-error *ngIf="studentForm.get('email')?.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="studentForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+        </mat-form-field>
+
+        <div class="grid grid-cols-2 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Roll Number</mat-label>
+                <input matInput formControlName="rollNumber" placeholder="e.g. 101">
+                <mat-error *ngIf="studentForm.get('rollNumber')?.hasError('required')">Roll number is
+                    required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Class/Section</mat-label>
+                <input matInput formControlName="className" placeholder="e.g. 10A">
+                <mat-error *ngIf="studentForm.get('className')?.hasError('required')">Class is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="Active">Active</mat-option>
+                <mat-option value="Inactive">Inactive</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="flex justify-end gap-3 pt-6">
+            <button mat-button type="button" (click)="onCancel()" class="!rounded-google-full px-6">Cancel</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="studentForm.invalid"
+                class="!px-10 !h-12 shadow-none">
+                {{ data.submitText }}
+            </button>
+        </div>
+    </form>
+</div>

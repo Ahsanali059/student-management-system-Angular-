@@ -99,7 +99,8 @@
                     <div class="relative w-full max-w-2xl group">
                         <mat-icon
                             class="absolute left-4 top-1/2 -translate-y-1/2 text-google-text_secondary group-focus-within:text-google-blue transition-colors">search</mat-icon>
-                        <input type="text" placeholder="Search in portal" class="m3-search-bar">
+                        <input type="text" placeholder="Search in portal" class="m3-search-bar"
+                            (input)="onSearch($event)">
                     </div>
                 </div>
 

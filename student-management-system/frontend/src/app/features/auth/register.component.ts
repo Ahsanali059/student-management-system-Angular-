@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -32,6 +33,7 @@ export class RegisterComponent {
     registerForm: FormGroup;
     loading = false;
     hidePassword = true;
+    private destroyRef = inject(DestroyRef);
 
     constructor(
         private fb: FormBuilder,
@@ -60,15 +62,17 @@ export class RegisterComponent {
         this.loading = true;
         const { username, email, password } = this.registerForm.value;
 
-        this.authService.register(username, email, password).subscribe({
-            next: data => {
-                this.snackBar.open('Registration successful! Please login.', 'Close', { duration: 3000 });
-                this.router.navigate(['/login']);
-            },
-            error: err => {
-                this.loading = false;
-                this.snackBar.open(err.error.message || 'Registration failed!', 'Close', { duration: 3000 });
-            }
-        });
+        this.authService.register(username, email, password)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.snackBar.open('Registration successful! Please login.', 'Close', { duration: 3000 });
+                    this.router.navigate(['/login']);
+                },
+                error: (err) => {
+                    this.loading = false;
+                    this.snackBar.open(err.error?.message || 'Registration failed!', 'Close', { duration: 3000 });
+                }
+            });
     }
 }
